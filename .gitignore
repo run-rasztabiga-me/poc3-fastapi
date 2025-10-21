@@ -53,7 +53,6 @@ frontend/node_modules/
 frontend/build/
 frontend/.pnp
 frontend/.pnp.js
-package-lock.json
 
 # Testing
 frontend/coverage/
