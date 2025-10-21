@@ -1,5 +1,5 @@
 # Etap 1: Budowanie aplikacji
-FROM node:18-alpine as build
+FROM node:20-alpine as build
 
 WORKDIR /app
 
@@ -13,8 +13,8 @@ RUN npm install
 COPY . .
 
 # Zmienne środowiskowe
-ARG REACT_APP_API_URL
-ENV REACT_APP_API_URL=${REACT_APP_API_URL}
+ARG VITE_API_URL
+ENV VITE_API_URL=${VITE_API_URL}
 
 # Budowanie aplikacji
 RUN npm run build
@@ -23,7 +23,7 @@ RUN npm run build
 FROM nginx:alpine
 
 # Kopiowanie zbudowanej aplikacji
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html
 
 # Kopiowanie konfiguracji nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf
