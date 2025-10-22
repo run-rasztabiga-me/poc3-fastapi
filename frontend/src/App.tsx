@@ -10,7 +10,7 @@ export interface Note {
   created_at: string;
 }
 
-const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000';
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 function App() {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -22,7 +22,7 @@ function App() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch(`${API_URL}/notes`);
+      const response = await fetch(`${API_URL}/notes/`);
       if (!response.ok) throw new Error('Nie udało się pobrać notatek');
       const data = await response.json();
       setNotes(data);
@@ -40,7 +40,7 @@ function App() {
   const handleCreateNote = async (title: string, content: string) => {
     try {
       setError(null);
-      const response = await fetch(`${API_URL}/notes`, {
+      const response = await fetch(`${API_URL}/notes/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
